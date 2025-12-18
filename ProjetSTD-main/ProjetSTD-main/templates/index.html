@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Carte des régiments</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="static/css/style.css">
+
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; font-family: sans-serif; }
+        #role-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;
+        }
+        #role-box {
+            background: #fff; padding: 20px; border-radius: 8px; text-align: center;
+        }
+        #top-bar {
+            height: 40px; background: #333; color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 10px;
+        }
+        #main { display: flex; height: calc(100vh - 40px); }
+        #left-bar { width: 250px; padding: 10px; overflow-y: auto; border-right: 1px solid #ccc; }
+        #map { flex: 1; }
+        #left-bar h3 { margin-top: 20px; }
+        #left-bar button { margin-bottom: 5px; }
+        #left-bar label { margin-left: 5px; }
+    </style>
+</head>
+<body>
+    <!-- Écran de sélection du rôle -->
+    <div id="role-overlay">
+        <div id="role-box">
+            <h2>Choisissez votre rôle</h2>
+            <select id="role-select">
+                <option value="" disabled selected>-- Sélection --</option>
+                <option value="eleve">Élève</option>
+                <option value="cadre">Cadre</option>
+                <option value="admin">Admin</option>
+            </select>
+            <button onclick="validerRole()">Valider</button>
+        </div>
+    </div>
+
+    <!-- Bandeau supérieur -->
+    <div id="top-bar">
+        <div id="top-buttons"></div>
+        <div id="user-info"></div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div id="main">
+        <div id="left-bar">
+            <h3>Filtres par arme</h3>
+            <button type="button" id="toggle-tout">Sélectionner tout</button>
+            <form id="filtres-form">
+                <div id="armes-filtres"></div>
+
+                <h3>Filtres spéciaux</h3>
+
+                <button type="button" id="select-all-special">Sélectionner tout</button><br>
+
+                <input type="checkbox" id="parachutiste" name="special" value="parachutiste" checked>
+                <label for="parachutiste">Parachutiste</label><br>
+
+                <input type="checkbox" id="legion" name="special" value="legion" checked>
+                <label for="legion">Légion étrangère</label><br>
+
+                <input type="checkbox" id="marine" name="special" value="marine" checked>
+                <label for="marine">Troupe de marine</label><br><br>
+
+                <button type="button" id="filtrer-btn">Valider</button>
+            </form>
+        </div>
+
+        <div id="map"></div>
+    </div>
+    <div id="modal-promo" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" id="modal-promo-close">&times;</span>
+            <h2>Choisissez votre promotion</h2>
+            <select id="select-promo">
+                <option value="" disabled selected>-- Sélection --</option>
+                <option value="EMIA 1">EMIA 1</option>
+                <option value="EMIA 2">EMIA 2</option>
+                <option value="ESM 1">ESM 1</option>
+                <option value="ESM 2">ESM 2</option>
+                <option value="ESM 3">ESM 3</option>
+                <option value="EMAC">EMAC</option>
+            </select>
+            <button id="valider-promo">Valider</button>
+        </div>
+    </div>
+    <div id="modal-liste" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" id="modal-close">&times;</span>
+            <h2 id="modal-title">Liste</h2>
+            <div id="modal-body">
+            </div>
+        </div>
+    </div>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Données -->
+    <script src="static/js/reg.js"></script>
+    <script src="static/js/personnes.js"></script>
+    <script src="static/js/armes.js"></script>
+
+    <!-- Carte -->
+    <script src="static/js/map.js"></script>
+
+    <!-- Logique carte -->
+    <script src="static/js/marqueur.js"></script>
+    <script src="static/js/filtre.js"></script>
+
+    <!-- Interface -->
+    <script src="static/js/interface.js"></script>    
+    <script src="static/js/menus.js"></script>
+    <script src="static/js/role.js"></script>
+</body>
+</html>

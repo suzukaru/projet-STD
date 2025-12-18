@@ -1,0 +1,281 @@
+/* reset basique */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+#top-bar {
+    display: flex;               /* Flex parent */
+    justify-content: center;     /* Centre horizontalement le groupe de boutons */
+    align-items: center;         /* Centre verticalement tous les éléments */
+    position: relative;          /* Pour le texte à droite */
+    height: 12.12vh;
+    background-color: #2c3e50;
+    padding: 0 20px;
+}
+
+#top-buttons {
+    display: flex;
+    gap: 150px;                  /* espace entre les boutons */
+}
+
+#top-buttons button {
+    padding: 5px 5px;   
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #2980b9;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+#top-buttons button:hover {
+    background-color: #3498db;
+}
+
+#user-info {
+    position: absolute;          /* reste à droite */
+    right: 20px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#top-bar::before,
+#top-bar::after {
+    content: '';
+    flex: 1;
+}
+
+/* zone sous le bandeau */
+#main {
+    display: flex;
+    height: calc(100vh - 16.66vh);
+}
+
+/* bandeau gauche */
+#left-bar {
+    width: 25vw;               /* 1/4 de l'écran */
+    background-color: #34495e;
+    color: white;
+    padding: 20px;
+}
+
+/* contenu principal */
+#content {
+    flex: 1;
+    background-color: #ecf0f1;
+}
+
+/* carte */
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+/* overlay choix rôle */
+#role-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#role-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+}
+
+#role-box h2 {
+    margin-bottom: 20px;
+}
+
+#role-box select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+}
+
+#role-box button {
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
+/* ===== MENU DEROUlant AMSCC ===== */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #2980b9;
+    color: white;
+    padding: 5px 15px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: #2980b9;
+    min-width: 160px;
+    border-radius: 5px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    z-index: 2000;
+}
+
+/* menu AMSCC ouvert par JS */
+.dropdown-content.open {
+    display: block;
+}
+.submenu {
+    padding: 8px 12px;
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.submenu:hover {
+    background-color: #0004ff;
+}
+
+.submenu-content {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: #2980b9;
+    min-width: 130px;
+    border-radius: 5px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.submenu:hover .submenu-content {
+    display: block;
+}
+
+.submenu-content div {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.submenu-content div:hover {
+    background-color: #2980b9;
+}
+
+/* MODAL */
+.modal {
+    display: none; /* cachée par défaut */
+    position: fixed;
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* fond semi-transparent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+/* CONTENU MODAL */
+.modal-content {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    width: 70%;
+    max-width: 800px;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    position: relative;
+    animation: slideDown 0.3s ease;
+}
+
+/* Animation ouverture */
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* TITRE */
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* CROIX FIXE */
+#modal-close {
+    position: absolute;   /* absolue dans le modal */
+    top: 10px;            /* 10px du haut du modal */
+    right: 10px;          /* 10px à droite du modal */
+    width: 35px;
+    height: 35px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;        /* au-dessus de tout dans le modal */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#modal-close:hover {
+    background-color: #c0392b;
+    transform: scale(1.1);
+}
+
+/* TABLEAU */
+#modal-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.95em;
+}
+
+#modal-body th, #modal-body td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+#modal-body th {
+    background-color: #2980b9;
+    color: white;
+    position: sticky; /* titre toujours visible */
+    top: 0;
+    z-index: 500;
+}
+
+#modal-body tr:hover {
+    background-color: #f1f1f1;
+}
