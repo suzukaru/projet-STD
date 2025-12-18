@@ -19,7 +19,7 @@ function creerMarkerSVG(regiment) {
         html: `<svg width="20" height="20">
                 <circle cx="10" cy="10" r="8" fill="${fillColor}" stroke="#000" stroke-width="2" />
                </svg>`,
-        iconSize: [60, 20],
+        iconSize: [20, 20],
         iconAnchor: [10, 10]
     });
 }
